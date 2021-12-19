@@ -46,4 +46,8 @@ dependencies {
     implementation "androidx.viewpager2:viewpager2:1.0.0"
     //livedata --> ViewModelProvider를 사용하기 위해
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0"
+    //Coroutine
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.1'
+    //lifecyclescope
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.4.0'
 }
