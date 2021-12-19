@@ -1,3 +1,5 @@
 package com.yongjincompany.bedalminjock.model
 
-data class BannerItem()
+data class BannerItem(
+    val image: Int
+)
