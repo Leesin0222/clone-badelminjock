@@ -46,7 +46,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
-                android:src="@drawable/ic_arrow_drop_down_circle_black_24dp" />
+                android:src="@drawable/ic_baseline_arrow_drop_down_circle_24" />
         </LinearLayout>
 
         <ImageView
