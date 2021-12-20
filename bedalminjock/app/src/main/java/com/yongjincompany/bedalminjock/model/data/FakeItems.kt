@@ -22,7 +22,7 @@ val fakeGridItemList = listOf(
     GridItem(R.drawable.g, "돈까스·회·일식"),
     GridItem(R.drawable.h, "치킨"),
     GridItem(R.drawable.i, "피자"),
-    GridItem(R.drawable.j, "이시안·양식"),
+    GridItem(R.drawable.j, "아시안·양식"),
     GridItem(R.drawable.k, "중국집"),
     GridItem(R.drawable.l, "족발·보쌈"),
     GridItem(R.drawable.m, "야식"),
