@@ -1,12 +1,19 @@
 package com.yongjincompany.bedalminjock.ui.a_home
 
+import android.animation.Animator
+import android.animation.ObjectAnimator
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.yongjincompany.bedalminjock.R
 import com.yongjincompany.bedalminjock.model.GridItem
 import kotlinx.android.synthetic.main.item_layout_grid.view.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers.Main
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class GridRecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private var gridItemList: List<GridItem>? = null
@@ -36,6 +43,44 @@ class GridRecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() 
         fun bind(gridItem: GridItem) {
             itemView.iv_grid_image.setImageResource(gridItem.image)
             itemView.tv_grid_title.text = gridItem.title
+
+            if(gridItem.image == R.drawable.b) {
+                animateView(itemView.iv_grid_image)
+            }
+        }
+
+        private fun animateView(ivGridImage: ImageView?) {
+            var count = 0
+            ObjectAnimator.ofFloat(ivGridImage, "translationY", 7f).apply {
+                duration = 100
+                repeatCount = 2
+                addListener(object: Animator.AnimatorListener{
+                    override fun onAnimationRepeat(animator: Animator?) {
+
+                    }
+
+                    override fun onAnimationEnd(animator: Animator?) {
+                        count++
+                        CoroutineScope(Main).launch {
+                            if(count % 2 == 0) {
+                                delay(1000)
+                            }else{
+                                delay(100)
+                            }
+                            start()
+                        }
+                    }
+
+                    override fun onAnimationCancel(animator: Animator?) {
+
+                    }
+
+                    override fun onAnimationStart(animator: Animator?) {
+
+                    }
+                })
+                start()
+            }
         }
     }
 }
