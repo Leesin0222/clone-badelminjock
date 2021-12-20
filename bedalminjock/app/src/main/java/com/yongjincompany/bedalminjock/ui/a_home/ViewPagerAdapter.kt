@@ -8,7 +8,7 @@ import com.yongjincompany.bedalminjock.R
 import com.yongjincompany.bedalminjock.model.BannerItem
 import kotlinx.android.synthetic.main.item_layout_banner.view.*
 
-class ViewPagerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class ViewPagerAdapter(private val interaction: Interaction) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     companion object {
         const val ITEM_COUNT = 5
     }
@@ -18,6 +18,7 @@ class ViewPagerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return BannerViewHolder(
             LayoutInflater.from(parent.context).inflate(R.layout.item_layout_banner, parent, false)
+            ,interaction
         )
     }
 
@@ -40,8 +41,12 @@ class ViewPagerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     //ViewHolder
     class BannerViewHolder
-    constructor(itemView : View) : RecyclerView.ViewHolder(itemView) {
+    constructor(itemView : View, private val interaction: Interaction) : RecyclerView.ViewHolder(itemView) {
         fun bind(bannerItem: BannerItem) {
+            itemView.setOnClickListener {
+                //MainActivity에서 동작을 수행할 수 있도록 만든다.
+                interaction.onBannerItemClicked(bannerItem)
+            }
             itemView.iv_banner_image.setImageResource(bannerItem.image)
         }
 
