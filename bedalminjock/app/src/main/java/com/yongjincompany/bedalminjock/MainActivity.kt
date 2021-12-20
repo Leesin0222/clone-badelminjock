@@ -8,10 +8,14 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.whenResumed
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.viewpager2.widget.ViewPager2
 import com.yongjincompany.bedalminjock.model.BannerItem
+import com.yongjincompany.bedalminjock.model.data.fakeBannerItemList
+import com.yongjincompany.bedalminjock.model.data.fakeGridItemList
 import com.yongjincompany.bedalminjock.ui.EventActivity
 import com.yongjincompany.bedalminjock.ui.MainActivityViewModel
+import com.yongjincompany.bedalminjock.ui.a_home.GridRecyclerViewAdapter
 import com.yongjincompany.bedalminjock.ui.a_home.Interaction
 import com.yongjincompany.bedalminjock.ui.a_home.ViewPagerAdapter
 import kotlinx.android.synthetic.main.activity_main.*
@@ -20,6 +24,7 @@ import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity(), View.OnClickListener,Interaction {
 
+    private lateinit var gridRecyclerViewAdapter: GridRecyclerViewAdapter
     private lateinit var viewPagerAdapter: ViewPagerAdapter
     private lateinit var viewModel: MainActivityViewModel
     private var isRunning = true
@@ -28,15 +33,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener,Interaction {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         viewModel = ViewModelProvider(this).get(MainActivityViewModel::class.java)
-        viewModel.setBannerItem(
-            listOf(
-                BannerItem(R.drawable.first),
-                BannerItem(R.drawable.second),
-                BannerItem(R.drawable.third),
-                BannerItem(R.drawable.fourth),
-                BannerItem(R.drawable.fifth)
-            )
-        )
+        viewModel.setBannerItem(fakeBannerItemList)
+        viewModel.setGridItems(fakeGridItemList)
 
         iv_hamburger.setOnClickListener(this)
         initViewPager2()
@@ -59,6 +57,12 @@ class MainActivity : AppCompatActivity(), View.OnClickListener,Interaction {
                 }
             })
         }
+        gridRecyclerView.apply {
+            gridRecyclerViewAdapter = GridRecyclerViewAdapter()
+            layoutManager = GridLayoutManager(this@MainActivity,4)
+
+            adapter = gridRecyclerViewAdapter
+        }
     }
 
     private fun subscribeObservers() {
@@ -67,6 +71,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener,Interaction {
 
         })
         viewModel.currentPosition.observe(this, Observer { currentPosition ->
+            viewPager2.currentItem = currentPosition
+        })
+        viewModel.gridItemList.observe(this, Observer { currentPosition ->
             viewPager2.currentItem = currentPosition
         })
     }
