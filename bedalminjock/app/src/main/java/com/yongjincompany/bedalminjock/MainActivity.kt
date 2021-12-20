@@ -21,6 +21,7 @@ import com.yongjincompany.bedalminjock.ui.a_home.ViewPagerAdapter
 import com.yongjincompany.bedalminjock.ui.collapse
 import com.yongjincompany.bedalminjock.ui.expand
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.layout_slide_menu.*
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -42,6 +43,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener,Interaction {
         iv_arrow.setOnClickListener(this)
 
         iv_hamburger.setOnClickListener(this)
+        ll_left_area.setOnClickListener(this)
         initViewPager2()
         subscribeObservers()
         autoScrollViewPager()
@@ -114,7 +116,16 @@ class MainActivity : AppCompatActivity(), View.OnClickListener,Interaction {
         p0?.let {
             when(it.id){
               R.id.iv_hamburger -> {
-
+                  if(drawer_layout.isDrawerOpen(ll_drawer)){
+                        drawer_layout.closeDrawer(ll_drawer)
+                  }else{
+                    drawer_layout.openDrawer(ll_drawer)
+                  }
+              }
+              R.id.ll_left_area -> {
+                  if(drawer_layout.isDrawerOpen(ll_drawer)){
+                        drawer_layout.closeDrawer(ll_drawer)
+                  }
               }
               R.id.tv_see_detail, R.id.iv_arrow -> {
                   if(ll_detail.visibility == View.GONE){
