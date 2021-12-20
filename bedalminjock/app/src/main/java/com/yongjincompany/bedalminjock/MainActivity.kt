@@ -73,8 +73,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener,Interaction {
         viewModel.currentPosition.observe(this, Observer { currentPosition ->
             viewPager2.currentItem = currentPosition
         })
-        viewModel.gridItemList.observe(this, Observer { currentPosition ->
-            viewPager2.currentItem = currentPosition
+        viewModel.gridItemList.observe(this, Observer { griditemList ->
+            gridRecyclerViewAdapter.submitList(griditemList)
         })
     }
 
