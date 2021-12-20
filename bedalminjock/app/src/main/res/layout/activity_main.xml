@@ -68,7 +68,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_baseline_remove_from_queue_24" />
+            app:srcCompat="@drawable/ic_baseline_qr_code_scanner_24" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
