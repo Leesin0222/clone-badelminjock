@@ -39,11 +39,13 @@ class MainActivity : AppCompatActivity(), View.OnClickListener,Interaction {
         viewModel.setBannerItem(fakeBannerItemList)
         viewModel.setGridItems(fakeGridItemList)
 
+
         tv_see_detail.setOnClickListener(this)
         iv_arrow.setOnClickListener(this)
 
         iv_hamburger.setOnClickListener(this)
         ll_left_area.setOnClickListener(this)
+
         initViewPager2()
         subscribeObservers()
         autoScrollViewPager()
@@ -131,7 +133,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener,Interaction {
                   if(ll_detail.visibility == View.GONE){
                         ll_detail.expand(scrollView = nested_scroll_view)
                         tv_see_detail.text = "닫기"
-                        iv_arrow.setImageResource(R.drawable.ic_baseline_keyboard_arrow_down_24)
+                        iv_arrow.setImageResource(R.drawable.ic_baseline_keyboard_arrow_up_24)
                   }else{
                     ll_detail.collapse()
                       tv_see_detail.text = "자세히보기"
