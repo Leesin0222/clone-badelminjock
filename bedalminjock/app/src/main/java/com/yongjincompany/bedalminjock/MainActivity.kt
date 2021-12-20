@@ -18,6 +18,8 @@ import com.yongjincompany.bedalminjock.ui.MainActivityViewModel
 import com.yongjincompany.bedalminjock.ui.a_home.GridRecyclerViewAdapter
 import com.yongjincompany.bedalminjock.ui.a_home.Interaction
 import com.yongjincompany.bedalminjock.ui.a_home.ViewPagerAdapter
+import com.yongjincompany.bedalminjock.ui.collapse
+import com.yongjincompany.bedalminjock.ui.expand
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -35,6 +37,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener,Interaction {
         viewModel = ViewModelProvider(this).get(MainActivityViewModel::class.java)
         viewModel.setBannerItem(fakeBannerItemList)
         viewModel.setGridItems(fakeGridItemList)
+
+        tv_see_detail.setOnClickListener(this)
+        iv_arrow.setOnClickListener(this)
 
         iv_hamburger.setOnClickListener(this)
         initViewPager2()
@@ -111,7 +116,17 @@ class MainActivity : AppCompatActivity(), View.OnClickListener,Interaction {
               R.id.iv_hamburger -> {
 
               }
-
+              R.id.tv_see_detail, R.id.iv_arrow -> {
+                  if(ll_detail.visibility == View.GONE){
+                        ll_detail.expand(scrollView = nested_scroll_view)
+                        tv_see_detail.text = "닫기"
+                        iv_arrow.setImageResource(R.drawable.ic_baseline_keyboard_arrow_down_24)
+                  }else{
+                    ll_detail.collapse()
+                      tv_see_detail.text = "자세히보기"
+                      iv_arrow.setImageResource(R.drawable.ic_baseline_keyboard_arrow_down_24)
+                  }
+              }
             }
         }
     }
