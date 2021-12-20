@@ -501,4 +501,5 @@
     </androidx.core.widget.NestedScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+    <include layout="@layout/layout_slide_menu"/>
 </androidx.drawerlayout.widget.DrawerLayout>
