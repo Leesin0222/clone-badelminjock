@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.yongjincompany.bedalminjock.MainActivity
 import com.yongjincompany.bedalminjock.R
 import com.yongjincompany.bedalminjock.model.BannerItem
 import kotlinx.android.synthetic.main.item_layout_banner.view.*
@@ -17,8 +18,8 @@ class ViewPagerAdapter(private val interaction: Interaction) : RecyclerView.Adap
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return BannerViewHolder(
-            LayoutInflater.from(parent.context).inflate(R.layout.item_layout_banner, parent, false)
-            ,interaction
+            LayoutInflater.from(parent.context).inflate(R.layout.item_layout_banner, parent, false),
+            interaction
         )
     }
 
