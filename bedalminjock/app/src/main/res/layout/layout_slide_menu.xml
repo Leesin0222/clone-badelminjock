@@ -44,10 +44,10 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
+                    android:layout_gravity="center"
                     android:layout_weight = "1"
-                    android:text="고마운분, 닉네임"
-                    android:textColor="#656565"
+                    android:text="고마운분, 이용진"
+                    android:textColor="#000"
                     android:textSize="20sp" />
 
                 <ImageView
