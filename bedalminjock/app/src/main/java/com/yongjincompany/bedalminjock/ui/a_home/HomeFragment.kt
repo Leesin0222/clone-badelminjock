@@ -1,60 +1,112 @@
 package com.yongjincompany.bedalminjock.ui.a_home
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.viewpager2.widget.ViewPager2
 import com.yongjincompany.bedalminjock.R
+import com.yongjincompany.bedalminjock.model.BannerItem
+import com.yongjincompany.bedalminjock.ui.EventActivity
+import com.yongjincompany.bedalminjock.ui.collapse
+import com.yongjincompany.bedalminjock.ui.expand
+import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.isActive
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [HomeFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class HomeFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+class HomeFragment : Fragment(R.layout.fragment_home), Interaction {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+    private lateinit var gridRecyclerViewAdapter: GridRecyclerViewAdapter
+    private lateinit var viewPagerAdapter: ViewPagerAdapter
+    private val homeViewModel : HomeViewModel by viewModels()
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        tv_see_detail.setOnClickListener(this)
+        iv_arrow.setOnClickListener(this)
+
+        initViewPager2()
+    }
+
+    private fun subscribeObservers() {
+        homeViewModel.bannerItemList.observe(viewLifecycleOwner, Observer {
+            viewPagerAdapter.submitList(it)
+        })
+        homeViewModel.gridItemList.observe(viewLifecycleOwner, Observer {
+            gridRecyclerViewAdapter.submitList(it)
+        })
+        homeViewModel.currentPosition.observe(viewLifecycleOwner, Observer {
+            viewPager2.currentItem = it
+        })
+    }
+
+    private fun autoScrollViewPager() {
+        viewLifecycleOwner.lifecycleScope.launchWhenCreated {
+            while(viewLifecycleOwner.lifecycleScope.isActive) {
+                delay(3000)
+                homeViewModel.getCurrentPosition()?.let {
+                    homeViewModel.setCurrentPosition(it.plus(1 % 5))
+                }
+
+            }
+        }
+    }
+    private fun initGridRecyclerView() {
+        gridRecyclerView.apply {
+            gridRecyclerViewAdapter = GridRecyclerViewAdapter()
+            layoutManager = GridLayoutManager(this@HomeFragment.context, 4)
+            adapter = gridRecyclerViewAdapter
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false)
+    private fun initViewPager2() {
+        viewPager2.apply {
+            viewPagerAdapter = ViewPagerAdapter(this@HomeFragment)
+            adapter = viewPagerAdapter
+            registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){
+                override fun onPageSelected(position: Int) {
+                    super.onPageSelected(position)
+                    tv_page_number.text = "${position + 1}"
+                    homeViewModel.setCurrentPosition(position)
+                }
+            })
+        }
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment HomeFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            HomeFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+    override fun onBannerItemClicked(bannerItem: BannerItem) {
+        startActivity(Intent(this@HomeFragment.context, EventActivity::class.java))
+    }
+
+    override fun onClick(v: View?) {
+        v?.let {
+            when (it.id) {
+                R.id.tv_see_detail, R.id.iv_arrow -> {
+                    if(ll_detail.visibility == View.GONE){
+                       ll_detail.expand(nested_scroll_view)
+                        tv_see_detail.text = "닫기"
+                        iv_arrow.setImageResource(R.drawable.ic_baseline_keyboard_arrow_up_24)
+                    }else{
+                        ll_detail.collapse()
+                        tv_see_detail.text = "자세히보기"
+                        iv_arrow.setImageResource(R.drawable.ic_baseline_keyboard_arrow_down_24)
+
+                    }
                 }
             }
+        }
     }
+
+    override fun onResume() {
+        super.onResume()
+        homeViewModel.getBannerItems()
+        homeViewModel.getGridItems()
+    }
+
 }
