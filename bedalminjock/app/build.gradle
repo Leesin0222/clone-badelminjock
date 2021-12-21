@@ -55,4 +55,9 @@ dependencies {
     implementation "androidx.navigation:navigation-fragment-ktx:2.3.5"
     implementation "androidx.navigation:navigation-ui-ktx:2.3.5"
     implementation "androidx.navigation:navigation-runtime:2.3.5"
+    //Glide : 이미지 로딩
+    implementation 'com.github.bumptech.glide:glide:4.11.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
+    //FlexBox :위에 tags를 표시하기 위해 사용한다 (가변적 레이아웃)
+    implementation 'com.google.android:flexbox:2.0.1'
 }
