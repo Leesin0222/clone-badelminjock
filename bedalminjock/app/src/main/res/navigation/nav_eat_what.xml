@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:app="http://schemas.android.com/apk/res-auto"
-             android:id="@+id/nav_eat_what">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_eat_what"
+    app:startDestination="@id/eatWhatFragment">
 
+    <fragment
+        android:id="@+id/eatWhatFragment"
+        android:name="com.yongjincompany.bedalminjock.ui.b_eatwhat.EatWhatFragment"
+        android:label="fragment_eat_what"
+        tools:layout="@layout/fragment_eat_what" />
 </navigation>
