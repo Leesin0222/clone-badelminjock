@@ -8,6 +8,5 @@
     <fragment
         android:id="@+id/eatWhatFragment"
         android:name="com.yongjincompany.bedalminjock.ui.b_eatwhat.EatWhatFragment"
-        android:label="fragment_eat_what"
         tools:layout="@layout/fragment_eat_what" />
 </navigation>

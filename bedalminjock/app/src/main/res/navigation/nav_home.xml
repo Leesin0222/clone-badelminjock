@@ -8,6 +8,5 @@
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.yongjincompany.bedalminjock.ui.a_home.HomeFragment"
-        android:label="fragment_home"
         tools:layout="@layout/fragment_home" />
 </navigation>

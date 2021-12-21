@@ -8,6 +8,5 @@
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.yongjincompany.bedalminjock.ui.e_profile.ProfileFragment"
-        android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
 </navigation>

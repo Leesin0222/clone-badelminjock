@@ -8,6 +8,5 @@
     <fragment
         android:id="@+id/favoriteFragment"
         android:name="com.yongjincompany.bedalminjock.ui.c_favorite.FavoriteFragment"
-        android:label="fragment_favorite"
         tools:layout="@layout/fragment_favorite" />
 </navigation>
