@@ -1,4 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <item
+        android:id="@+id/nav_home"
+        android:icon="@drawable/ic_baseline_home_24"
+        android:title="홈"/>
+
+    <item
+        android:id="@+id/nav_eat_what"
+        android:icon="@drawable/ic_baseline_live_tv_24"
+        android:title="뭐먹지"/>
+
+    <item
+        android:id="@+id/nav_favorite"
+        android:icon="@drawable/ic_baseline_favorite_border_24"
+        android:title="지찜한가게"/>
+
+    <item
+        android:id="@+id/nav_order"
+        android:icon="@drawable/ic_baseline_reorder_24"
+        android:title="주문내역"/>
+
+    <item
+        android:id="@+id/nav_profile"
+        android:icon="@drawable/ic_baseline_tag_faces_24"
+        android:title="My배민"/>
 </menu>
