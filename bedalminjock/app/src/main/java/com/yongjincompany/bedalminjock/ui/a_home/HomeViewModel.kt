@@ -36,7 +36,7 @@ class HomeViewModel : ViewModel() {
 
     fun getBannerItems() {
         viewModelScope.launch {
-            val bannerItemLiveData = HomeRepositoryImpl.getGridItems()
+            val bannerItemLiveData = HomeRepositoryImpl.getBannerItems()
             withContext(Main) {
                 _bannerItemList.value = bannerItemLiveData
             }
